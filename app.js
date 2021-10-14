@@ -109,5 +109,5 @@ app.use((err, req, res, next) => {
 });
 //const port = process.env.PORT || 3000;
 app.listen(13371, () => {
-  console.log(`SERVER STARTED ON ${port}`);
+  console.log(`SERVER STARTED ON 13371`);
 });
