@@ -20,12 +20,11 @@ const spotRoutes = require("./routes/spots");
 const reviewRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/users");
 
-const MongoStore = new require('connect-mongo');
+const MongoStore = new require("connect-mongo");
 
 const { date } = require("joi");
 const { authenticate } = require("passport");
-//const dbURL = process.env.dbURL || 'mongodb://localhost:27017/test' ;
-const dbURL = 'mongodb://localhost:27017/letsGo' ;
+const dbURL = process.env.dbURL;
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -47,16 +46,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
-
 //const secretKey = process.env.secretKey || '1234';
-const secretKey = '1234';
+const secretKey = "1234";
 
 const store = MongoStore.create({
   mongoUrl: dbURL,
   touchAfter: 24 * 60 * 60,
   crypto: {
-      secret: secretKey
-  }
+    secret: secretKey,
+  },
 });
 
 app.use(
@@ -107,7 +105,7 @@ app.use((err, req, res, next) => {
   }
   res.status(status).render("error", { err });
 });
-//const port = process.env.PORT || 3000;
-app.listen(13371, () => {
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
   console.log(`SERVER STARTED ON 13371`);
 });
