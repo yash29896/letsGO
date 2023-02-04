@@ -15,7 +15,6 @@ module.exports.editForm = async (req, res) => {
     req.flash("errors", "Spot Does not exist, Wrong ID");
     return res.redirect("/spot");
   }
-
   res.render("spot/edit", { temp });
 };
 
@@ -34,7 +33,6 @@ module.exports.showPage = async (req, res) => {
     req.flash("errors", "Spot Does not exist, Wrong ID");
     return res.redirect("/spot");
   }
-
   res.render("spot/show", { temp });
 };
 

@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const session = require("express-session");
 const flash = require("connect-flash");
@@ -24,7 +25,11 @@ const MongoStore = new require("connect-mongo");
 
 const { date } = require("joi");
 const { authenticate } = require("passport");
+
 const dbURL = process.env.dbURL;
+const secretKey = process.env.secretKey;
+const port = process.env.PORT;
+
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -45,9 +50,6 @@ app.engine("ejs", ejsMate);
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
-
-//const secretKey = process.env.secretKey || '1234';
-const secretKey = "1234";
 
 const store = MongoStore.create({
   mongoUrl: dbURL,
@@ -105,7 +107,7 @@ app.use((err, req, res, next) => {
   }
   res.status(status).render("error", { err });
 });
-const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
-  console.log(`SERVER STARTED ON 13371`);
+  console.log(`SERVER STARTED ON ${port}`);
 });
